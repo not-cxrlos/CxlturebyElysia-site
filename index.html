@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elysia's Art | Premium Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070a;
+  --card:#141420;
+  --text:#ffffff;
+  --muted:#a1a1aa;
+  --accent:#60a5fa;
+  --gold:#fbbf24;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at top,#151522,#07070a);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+.bg-glow{
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,rgba(96,165,250,0.15),transparent 60%);
+  top:-200px;
+  left:-200px;
+  animation:floatGlow 12s infinite alternate;
+  z-index:0;
+}
+
+@keyframes floatGlow{
+  from{transform:translate(0,0);}
+  to{transform:translate(200px,150px);}
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  padding:16px;
+  text-align:center;
+  background:rgba(7,7,10,0.75);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid #1f1f2a;
+}
+header h1{
+  font-family:'Playfair Display',serif;
+  margin:0;
+  font-size:34px;
+}
+nav a{
+  color:var(--muted);
+  margin:0 10px;
+  text-decoration:none;
+  font-size:13px;
+}
+nav a:hover{color:white;}
+
+.hero{
+  padding:120px 20px 60px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.hero h2{
+  font-size:56px;
+  margin:0;
+  font-family:'Playfair Display',serif;
+}
+.hero p{color:var(--muted);}
+
+.featured{
+  text-align:center;
+  color:var(--gold);
+  letter-spacing:3px;
+  font-size:12px;
+  margin-top:10px;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+  padding:40px;
+  position:relative;
+  z-index:1;
+}
+
+.card{
+  position:relative;
+  background:var(--card);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,0.6);
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.5s ease;
+}
+.card.visible{opacity:1;transform:translateY(0);}
+.card:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 50px rgba(96,165,250,0.25);
+}
+
+.card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  cursor:pointer;
+  transition:0.5s;
+}
+.card:hover img{transform:scale(1.08);}
+
+.card-content{padding:16px;}
+.price{color:var(--accent);font-weight:600;}
+
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:rgba(251,191,36,0.95);
+  color:#111;
+  padding:5px 10px;
+  font-size:11px;
+  border-radius:6px;
+  font-weight:700;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 14px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:13px;
+  transition:0.3s;
+}
+.btn.primary{background:var(--accent);color:#fff;}
+.btn.secondary{background:#22c55e;color:#fff;}
+.btn:hover{transform:scale(1.05);opacity:0.9;}
+
+.section{padding:60px 20px;text-align:center;}
+form{max-width:420px;margin:auto;display:flex;flex-direction:column;gap:12px;}
+input,textarea{
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  background:#1a1a22;
+  color:white;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  border-top:1px solid #1f1f25;
+}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.97);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+.lightbox.active{display:flex;}
+.lightbox img{
+  max-width:86%;
+  max-height:86%;
+  border-radius:12px;
+  box-shadow:0 0 80px rgba(96,165,250,0.3);
+}
+
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:44px;
+  color:white;
+  cursor:pointer;
+  padding:10px;
+  opacity:0.7;
+}
+.arrow:hover{opacity:1;}
+.arrow.left{left:20px;}
+.arrow.right{right:20px;}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<header>
+  <h1>Elysia's Art</h1>
+  <nav>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Inquiry</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Luxury Originals</h2>
+  <p>Exclusive collector-grade artwork. Limited availability.</p>
+</section>
+
+<div class="featured">FEATURED COLLECTION</div>
+
+<section id="gallery" class="gallery">
+
+<div class="card"><span class="badge">LIMITED STOCK</span><img src="art1.jpg"><div class="card-content"><h3>Ghost Face</h3><p class="price">$120</p><a href="https://cash.app/$ElCarlosOrtiz" class="btn secondary">Buy</a><a href="#contact" onclick="selectArt('Ghost Face')" class="btn primary">Inquire</a></div></div>
+
+<div class="card"><img src="art2.jpg"><div class="card-content"><h3>Midnight Flow</h3><p class="price">$180</p><a href="https://cash.app/$ElCarlosOrtiz" class="btn secondary">Buy</a><a href="#contact" onclick="selectArt('Midnight Flow')" class="btn primary">Inquire</a></div></div>
+
+<div class="card"><img src="art3.jpg"><div class="card-content"><h3>Golden Chaos</h3><p class="price">$200</p><a href="https://cash.app/$ElCarlosOrtiz" class="btn secondary">Buy</a><a href="#contact" onclick="selectArt('Golden Chaos')" class="btn primary">Inquire</a></div></div>
+
+<div class="card"><span class="badge">SOLD</span><img src="art4.jpg"><div class="card-content"><h3>Silent Waves</h3><p class="price">$150</p><a href="https://cash.app/$ElCarlosOrtiz" class="btn secondary">Buy</a><a href="#contact" onclick="selectArt('Silent Waves')" class="btn primary">Inquire</a></div></div>
+
+<div class="card"><img src="art5.jpg"><div class="card-content"><h3>Neon Dreams</h3><p class="price">$220</p><a href="https://cash.app/$ElCarlosOrtiz" class="btn secondary">Buy</a><a href="#contact" onclick="selectArt('Neon Dreams')" class="btn primary">Inquire</a></div></div>
+
+</section>
+
+<section id="contact" class="section">
+<h2>Private Inquiry</h2>
+<form action="https://formspree.io/f/mgorddde" method="POST">
+<input type="text" name="name" placeholder="Name" required>
+<input type="email" name="email" placeholder="Email" required>
+<input type="text" id="artPiece" name="art" placeholder="Artwork" readonly>
+<textarea name="message" placeholder="Message"></textarea>
+<button class="btn primary" type="submit">Send Inquiry</button>
+</form>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <span class="arrow left" onclick="prevImage()">❮</span>
+  <img id="lightboxImg">
+  <span class="arrow right" onclick="nextImage()">❯</span>
+</div>
+
+<section id="about" class="section" style="text-align:left; max-width:900px; margin:auto; padding:80px 20px;">
+
+<style>
+.reveal{opacity:0; transform:translateY(20px); transition:1s ease;}
+.reveal.active{opacity:1; transform:translateY(0);}
+.signature{
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  letter-spacing:2px;
+  margin-top:20px;
+  color:#ffffff;
+}
+.logo-mark{
+  width:60px;
+  height:60px;
+  border:1px solid #3b3b44;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Playfair Display',serif;
+  margin-bottom:20px;
+  color:#fbbf24;
+}
+.quote{
+  font-style:italic;
+  color:#a1a1aa;
+  border-left:2px solid #60a5fa;
+  padding-left:12px;
+  margin:20px 0;
+}
+.collector{
+  margin-top:20px;
+  padding:15px;
+  border:1px solid #2a2a35;
+  border-radius:10px;
+  background:#111118;
+  color:#cbd5e1;
+}
+</style>
+
+<div class="logo-mark reveal">CO</div>
+
+<h2 class="reveal">About the Artist</h2>
+
+<p class="reveal">
+Elysia Ortiz is a contemporary visual artist whose work exists at the intersection of emotion, memory, and abstraction. Each piece is designed not simply to be seen, but to be felt.
+</p>
+
+<p class="reveal">
+Working with layered texture and tonal contrast, Elysia creates visual narratives that explore identity, silence, and internal movement.
+</p>
+
+<div class="quote reveal">
+“Art is not what you look at — it is what you begin to feel when you stop looking away.”
+</div>
+
+<div class="collector reveal">
+<strong>Collector Statement</strong><br>
+This collection is intended for collectors who value rarity, emotional depth, and timeless visual storytelling. Each piece is part of a limited visual archive — not mass production.
+</div>
+
+<div class="signature reveal">
+— Elysia Ortiz
+</div>
+
+<script>
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('active');}
+  });
+},{threshold:0.15});
+
+reveals.forEach(r=>obs.observe(r));
+</script>
+
+</section>
+
+<footer>© 2026 Elysia's Art — All Rights Reserved</footer>
+
+<script>
+function selectArt(p){document.getElementById('artPiece').value=p;}
+
+const images=[...document.querySelectorAll('.card img')];
+let i=0;
+const lightbox=document.getElementById('lightbox');
+const img=document.getElementById('lightboxImg');
+
+images.forEach((el,idx)=>{
+  el.onclick=()=>{i=idx;show();lightbox.classList.add('active');}
+});
+
+function show(){img.src=images[i].src;}
+function nextImage(){i=(i+1)%images.length;show();}
+function prevImage(){i=(i-1+images.length)%images.length;show();}
+
+window.addEventListener('keydown',(e)=>{
+  if(!lightbox.classList.contains('active'))return;
+  if(e.key==='ArrowRight')nextImage();
+  if(e.key==='ArrowLeft')prevImage();
+  if(e.key==='Escape')lightbox.classList.remove('active');
+});
+
+lightbox.onclick=e=>{if(e.target===lightbox)lightbox.classList.remove('active');}
+
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+cards.forEach(c=>{
+const r=c.getBoundingClientRect();
+if(r.top<window.innerHeight-50)c.classList.add('visible');
+});
+});
+</script>
+
+</body>
+</html>
